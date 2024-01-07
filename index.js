@@ -19,7 +19,8 @@ app.use(
 );
 
 // Define your MongoDB connection string
-const MONGODB_URI = process.env.MONGODB_URL
+
+const MONGODB_URI = process.env.MONGODB_URL;
 
 async function main() {
     try {
@@ -74,7 +75,8 @@ app.post('/login', async (req, res) => {
 
 app.get('/products', async (req, res) => {
     try {
-        const products = await ProductModel.find();
+        const products = await ProductModel.find().maxTimeMS(20000); // Increase the timeout to 20 seconds
+;
         res.send(products);
     } catch (error) {
         res.status(500).send({ error: 'Failed to fetch products!' });
